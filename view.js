@@ -14,44 +14,57 @@ function getTitle(){
 }
 
 function getTable(model){
-    const {name} = model
-    const {temp} = model
-    const {max} = model
-    const {min} = model
-    return[
-        {
-            'name': name,
-            'temp': temp,
-            'max': max,
-            'min': min,
+    const {locations} = model
+    const {temps} = model
+    const {maxs} = model
+    const {mins} = model
+    const table = []
+    if(model.locations != undefined){
+        for(i=0;i<locations.length;i++){
+            table.push({"name": locations[i],"temp": temps[i],"max": maxs[i], "min": mins[i]})
         }
-    ]
+    }
+    return table
 }
 
 function inputForm(model){
-    const{input} = model
+    const{location} = model
     const message = 'Location? '
     return inquirer.prompt([
         {
             name: 'location',
             type: 'input',
             message: message,
-            default: input,
+            default: location,
         }
     ])
 }
-function listForm(model){
-    const {input} = model
+function listForm1(model){
+    const {selection} = model
     const message = 'Select action: '
-    const choices1 = ['Add City']
-    const choices2 = ['Add City','Update City','Delete City']
+    const choices = ['Add City']
     return inquirer.prompt([
         {
             name: 'action',
             type: 'list',
             message: message,
-            default: input,
-            choices: choices1
+            default: selection,
+            choices: choices
+        }
+    ])
+}
+
+function listForm2(model){
+    const {selection} = model
+    const message = 'Select action: '
+    const choices = ['Add City','Update City','Delete City']
+    return inquirer.prompt([
+        {
+            name: 'action',
+            type: 'list',
+            message: message,
+            default: selection,
+            choices: choices
         }
     ])
 }
@@ -66,5 +79,6 @@ function view(model){
 module.exports = {
     view,
     inputForm,
-    listForm
+    listForm1,
+    listForm2
 } 
