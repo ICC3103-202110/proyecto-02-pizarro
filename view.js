@@ -69,6 +69,26 @@ function listForm2(model){
     ])
 }
 
+function listFormCity(model){
+    const cities = []
+    for(i=0;i<model.locations.length;i++){
+        cities.push(model.locations[i])
+    }
+    const {selection} = model
+    const choices = cities
+    const message = "Delete City: "
+    return inquirer.prompt([
+        {
+            name: 'delete',
+            type: 'list',
+            message: message,
+            default: selection,
+            choices: choices
+        }
+    ])
+
+}
+
 function view(model){
     return {
         title: getTitle(),
@@ -80,5 +100,6 @@ module.exports = {
     view,
     inputForm,
     listForm1,
-    listForm2
+    listForm2,
+    listFormCity
 } 
