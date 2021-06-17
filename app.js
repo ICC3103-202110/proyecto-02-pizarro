@@ -37,9 +37,14 @@ async function app(state,update,view){
                 }
             }
             if (selection.action === "Update City"){
-                
+                const location = await listFormCity(model)
+                const updatedModel = update(selection, location, newlocations, newtemp, newmax, newmin, model)
+                state = {
+                    ...state,
+                    model: updatedModel,
+                    currentView : view(updatedModel)
+                }
             }
-            console.log(selection.action)
             if (selection.action === "Add City"){
                 const location = await inputForm(model)
                 const updatedModel = update(selection, location, newlocations, newtemp, newmax, newmin, model)
@@ -49,7 +54,6 @@ async function app(state,update,view){
                     currentView : view(updatedModel)
                 }
             }
-        console.log(newlocations)
         }
         
     }
