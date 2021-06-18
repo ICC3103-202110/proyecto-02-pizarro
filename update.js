@@ -62,10 +62,11 @@ async function update(selection, location, newlocations, newtemp, newmax, newmin
     }
 
     if (selection.action === "Update City"){
+        const api2  = `${url}?q=${location.delete}&appid=${key}&units=metric`
         let index = newlocations.indexOf(location.delete)
-        newtemp.splice(index, 1, randtemp())
-        newmax.splice(index, 1, randmax())
-        newmin.splice(index, 1, randmin())
+        newtemp.splice(index, 1, await temp(api2))
+        newmax.splice(index, 1, await maxtemp(api2))
+        newmin.splice(index, 1, await mintemp(api2))
     }
     
     return{
