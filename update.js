@@ -1,3 +1,32 @@
+const axios = require('axios')
+
+function temp(api){
+    let get = axios.get(api)
+    .then(function(response){
+        let temp = response.data.main.temp
+        return temp
+    })
+    return get
+}
+
+function maxtemp(api){
+    let get = axios.get(api)
+    .then(function(response){
+        let temp = response.data.main.temp_max
+        return temp
+    })
+    return get
+}
+
+function mintemp(api){
+    let get = axios.get(api)
+    .then(function(response){
+        let temp = response.data.main.temp_min
+        return temp
+    })
+    return get
+}
+
 function randmax(){
     return Math.floor(Math.random()*(32-24)+24)
 }
@@ -10,12 +39,17 @@ function randmin(){
     return Math.floor(Math.random()*(18-8)+8)
 }
 
-function update(selection, location, newlocations, newtemp, newmax, newmin, model){
+async function update(selection, location, newlocations, newtemp, newmax, newmin, model){
+    const url = "https://api.openweathermap.org/data/2.5/weather"
+    const key = "35abcb564a17f2bcf53fd34c8394864d"
+    const api  = `${url}?q=${location.location}&appid=${key}&units=metric`
+
     if (selection.action === "Add City"){
         newlocations.push(location.location)
-        newtemp.push(randtemp())
-        newmax.push(randmax())
-        newmin.push(randmin())
+        newtemp.push(await temp(api))
+        newmax.push(await maxtemp(api))
+        newmin.push(await mintemp(api))
+        console.log(newtemp)
     }
 
     if (selection.action === "Delete City"){
@@ -33,7 +67,7 @@ function update(selection, location, newlocations, newtemp, newmax, newmin, mode
         newmax.splice(index, 1, randmax())
         newmin.splice(index, 1, randmin())
     }
-
+    
     return{
         ...model,
         locations: newlocations,

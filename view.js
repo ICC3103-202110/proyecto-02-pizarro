@@ -39,6 +39,7 @@ function inputForm(model){
         }
     ])
 }
+
 function listForm1(model){
     const {selection} = model
     const message = 'Select action: '
