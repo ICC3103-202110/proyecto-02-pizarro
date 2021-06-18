@@ -39,7 +39,16 @@ function randmin(){
     return Math.floor(Math.random()*(18-8)+8)
 }
 
-async function update(selection, location, newlocations, newtemp, newmax, newmin, model){
+async function update(
+    selection, 
+    location, 
+    newlocations, 
+    newtemp, 
+    newmax, 
+    newmin, 
+    model
+    ){
+
     const url = "https://api.openweathermap.org/data/2.5/weather"
     const key = "35abcb564a17f2bcf53fd34c8394864d"
     const api  = `${url}?q=${location.location}&appid=${key}&units=metric`
