@@ -58,7 +58,6 @@ async function update(
         newtemp.push(await temp(api))
         newmax.push(await maxtemp(api))
         newmin.push(await mintemp(api))
-        console.log(newtemp)
     }
 
     if (selection.action === "Delete City"){
